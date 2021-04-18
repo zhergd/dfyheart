@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <properties url="file:D:\study\dfyheart\src\main\resources\mybatis\mybatis-auto.properties"/>
+
+    <context id="autoMybatis" targetRuntime="MyBatis3">
+        <!--自动实现Serializable接口-->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <!--覆盖生成XML文件-->
+        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin"/>
+        <!-- 去除自动生成的注释 -->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <!--数据库基本信息-->
+        <jdbcConnection driverClass="${jdbc.driver}" connectionURL="${jdbc.url}" userId="${jdbc.username}"
+                        password="${jdbc.password}">
+        </jdbcConnection>
+
+        <!--生成实体类的位置以及包的名字-->
+        <javaModelGenerator targetPackage="${entity.dir}" targetProject="src/main/java">
+            <!-- 从数据库返回的值被清理前后的空格 -->
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!--生成映射文件存放位置-->
+        <sqlMapGenerator targetPackage="${xml.dir}" targetProject="src/main/resources">
+        </sqlMapGenerator>
+
+        <!--生成Dao类存放位置,mapper接口生成的位置-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="${dao.dir}" targetProject="src/main/java">
+        </javaClientGenerator>
+
+        <!-- 配置表信息 -->
+
+        <!--
+            <table tableName="heart_access" domainObjectName="HeartAccess"/>
+            <table tableName="heart_motto" domainObjectName="HeartMotto"/>
+            <table tableName="heart_user" domainObjectName="HeartUser"/>
+        -->
+        <table tableName="heart_access" domainObjectName="HeartAccess"/>
+        <table tableName="heart_motto" domainObjectName="HeartMotto"/>
+        <table tableName="heart_user" domainObjectName="HeartUser"/>
+
+    </context>
+</generatorConfiguration>

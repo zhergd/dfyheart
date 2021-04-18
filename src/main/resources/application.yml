@@ -1,0 +1,11 @@
+spring:
+  #  ˝æ›ø‚≈‰÷√
+  datasource:
+    username: root
+    password: DfyheartDb
+    url: jdbc:mysql://rm-uf6vz6geyb243z7j78o.mysql.rds.aliyuncs.com:3306/dfy_heart?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC&allowMultiQueries=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath*:mybatis/mapper/*.xml

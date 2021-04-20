@@ -21,6 +21,28 @@ public class GetMottoRequest implements Serializable {
     @ApiModelProperty(value = "用户ip")
     private String userIp;
 
+    @ApiModelProperty("sign")
+    private String sign;
+
+    @ApiModelProperty("time")
+    private Long time;
+
+    public String getSign() {
+        return sign;
+    }
+
+    public void setSign(String sign) {
+        this.sign = sign;
+    }
+
+    public Long getTime() {
+        return time;
+    }
+
+    public void setTime(Long time) {
+        this.time = time;
+    }
+
     public String getUserName() {
         return userName;
     }

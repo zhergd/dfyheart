@@ -2,7 +2,6 @@ server:
   port: 8777
 
 spring:
-  # Êı¾İ¿âÅäÖÃ
   datasource:
     username: root
     password: DfyheartDb

@@ -6,11 +6,14 @@ import com.dfy.heart.constants.ResponseCode;
 import com.dfy.heart.domain.common.Response;
 import com.dfy.heart.domain.response.BmpLoaderResponse;
 import com.dfy.heart.service.IImgService;
+import com.dfy.heart.util.AuthUtil;
 import com.dfy.heart.util.ImgUtil;
 import com.dfy.heart.util.ResponseUtil;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -34,7 +37,14 @@ public class ImgService implements IImgService {
     ResponseUtil responseUtil;
 
     @Override
-    public Response<BmpLoaderResponse> bmpLoader(MultipartFile multipartFile) {
+    public Response<BmpLoaderResponse> bmpLoader(MultipartFile multipartFile, String sign, Long time) {
+        if (StringUtils.isEmpty(sign) || ObjectUtils.isEmpty(time)) {
+            return responseUtil.buildErrorResponse(ResponseCode.PARAMETER_ERROR);
+        }
+        if (!AuthUtil.authAccess(sign, time)) {
+            return responseUtil.buildErrorResponse(ResponseCode.CHECK_SIGN_FAIL);
+        }
+
         File fileOne = new File(multipartFile.getOriginalFilename());
         try {
             FileUtils.copyInputStreamToFile(multipartFile.getInputStream(), fileOne);
@@ -48,7 +58,14 @@ public class ImgService implements IImgService {
     }
 
     @Override
-    public Response<BmpLoaderResponse> bmpLoaders(MultipartFile multipartFileOne, MultipartFile multipartFileTwo) {
+    public Response<BmpLoaderResponse> bmpLoaders(MultipartFile multipartFileOne, MultipartFile multipartFileTwo, String sign, Long time) {
+        if (StringUtils.isEmpty(sign) || ObjectUtils.isEmpty(time)) {
+            return responseUtil.buildErrorResponse(ResponseCode.PARAMETER_ERROR);
+        }
+        if (!AuthUtil.authAccess(sign, time)) {
+            return responseUtil.buildErrorResponse(ResponseCode.CHECK_SIGN_FAIL);
+        }
+
         File fileOne = new File(multipartFileOne.getOriginalFilename());
         File fileTwo = new File(multipartFileTwo.getOriginalFilename());
         try {

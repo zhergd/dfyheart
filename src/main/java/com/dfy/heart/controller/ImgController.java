@@ -28,15 +28,17 @@ public class ImgController {
 
     @ApiOperation("获取心形匹配度")
     @PostMapping("/getImgBmp")
-    public Response<BmpLoaderResponse> bmpLoader(@RequestParam("file") MultipartFile file) {
-        return imgService.bmpLoader(file);
+    public Response<BmpLoaderResponse> bmpLoader(@RequestParam("file") MultipartFile file
+            , @RequestParam("sign") String sign, @RequestParam("time") Long time) {
+        return imgService.bmpLoader(file, sign, time);
     }
 
     @ApiOperation("获取两张图片匹配度")
     @PostMapping("/bmpLoader")
     public Response<BmpLoaderResponse> bmpLoader(@RequestParam("file") MultipartFile file
-            , @RequestParam("file2") MultipartFile file2) {
-        return imgService.bmpLoaders(file, file2);
+            , @RequestParam("file2") MultipartFile file2
+            , @RequestParam("sign") String sign, @RequestParam("time") Long time) {
+        return imgService.bmpLoaders(file, file2, sign, time);
     }
 
 }

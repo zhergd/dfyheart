@@ -1,5 +1,6 @@
 package com.dfy.heart.service.impl;
 
+import com.dfy.heart.constants.ResponseCode;
 import com.dfy.heart.dao.HeartAccessMapper;
 import com.dfy.heart.dao.HeartMottoMapper;
 import com.dfy.heart.dao.HeartUserMapper;
@@ -8,8 +9,10 @@ import com.dfy.heart.domain.entity.*;
 import com.dfy.heart.domain.request.AddAccessRequest;
 import com.dfy.heart.domain.request.GetMottoRequest;
 import com.dfy.heart.service.ICommonService;
+import com.dfy.heart.util.AuthUtil;
 import com.dfy.heart.util.BeanMapperUtil;
 import com.dfy.heart.util.ResponseUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
@@ -40,19 +43,31 @@ public class CommonService implements ICommonService {
 
     @Override
     public Response<Boolean> addAccess(AddAccessRequest addAccessRequest) {
+        if (StringUtils.isEmpty(addAccessRequest.getSign()) || ObjectUtils.isEmpty(addAccessRequest.getTime())) {
+            return responseUtil.buildErrorResponse(ResponseCode.PARAMETER_ERROR);
+        }
+        if (!AuthUtil.authAccess(addAccessRequest.getSign(), addAccessRequest.getTime())) {
+            return responseUtil.buildErrorResponse(ResponseCode.CHECK_SIGN_FAIL);
+        }
+
         try {
             HeartAccess heartAccess = BeanMapperUtil.map(addAccessRequest, HeartAccess.class);
             heartAccess.setAccessTime(System.currentTimeMillis());
             heartAccessMapper.insertSelective(heartAccess);
             return responseUtil.buildSuccessResponse(true);
         } catch (Exception e) {
-            System.out.println(e);
             return responseUtil.buildSuccessResponse(false);
         }
     }
 
     @Override
     public Response<String> getMotto(GetMottoRequest getMottoRequest) {
+        if (StringUtils.isEmpty(getMottoRequest.getSign()) || ObjectUtils.isEmpty(getMottoRequest.getTime())) {
+            return responseUtil.buildErrorResponse(ResponseCode.PARAMETER_ERROR);
+        }
+        if (!AuthUtil.authAccess(getMottoRequest.getSign(), getMottoRequest.getTime())) {
+            return responseUtil.buildErrorResponse(ResponseCode.CHECK_SIGN_FAIL);
+        }
 
         try {
             String mottoText = "";

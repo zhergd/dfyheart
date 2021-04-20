@@ -17,7 +17,29 @@ public class AddAccessRequest implements Serializable {
     @ApiModelProperty("埋点类型 1首页 2次页(开启拾年之旅) 3预览 4开启高光时刻 5输入名字")
     private Integer accessType;
 
+    @ApiModelProperty("sign")
+    private String sign;
+
+    @ApiModelProperty("time")
+    private Long time;
+
     private static final long serialVersionUID = 1L;
+
+    public String getSign() {
+        return sign;
+    }
+
+    public void setSign(String sign) {
+        this.sign = sign;
+    }
+
+    public Long getTime() {
+        return time;
+    }
+
+    public void setTime(Long time) {
+        this.time = time;
+    }
 
     public Integer getAccessType() {
         return accessType;

@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public interface IImgService {
 
-    Response<BmpLoaderResponse> bmpLoader(MultipartFile file);
-    Response<BmpLoaderResponse> bmpLoaders(MultipartFile file, MultipartFile file2);
+    Response<BmpLoaderResponse> bmpLoader(MultipartFile file, String sign, Long time);
+
+    Response<BmpLoaderResponse> bmpLoaders(MultipartFile file, MultipartFile file2, String sign, Long time);
 }

@@ -14,7 +14,7 @@ import java.io.Serializable;
 public class AddAccessRequest implements Serializable {
 
 
-    @ApiModelProperty("埋点类型")
+    @ApiModelProperty("埋点类型 1首页 2次页(开启拾年之旅) 3预览 4开启高光时刻 5输入名字")
     private Integer accessType;
 
     private static final long serialVersionUID = 1L;

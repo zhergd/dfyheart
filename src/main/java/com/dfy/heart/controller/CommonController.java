@@ -12,11 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 
-/**
- * @author zhangzuhao
- * @description:
- * @date: 2021/4/17 11:29
- */
+
 @Api(description = "通用Controller")
 @RestController
 @RequestMapping("/common")

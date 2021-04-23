@@ -17,7 +17,6 @@ import javax.annotation.Resource;
  * @description:
  * @date: 2021/4/14 17:22
  */
-@Api(description = "图片相似度比较Controller")
 @RestController
 @RequestMapping("/dfy")
 public class ImgController {

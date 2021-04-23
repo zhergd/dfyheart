@@ -15,23 +15,13 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * swagger文档
- *
- * @author jack
- * @since 2020/6/8 下午5:46
- */
+
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
     @Bean
     public Docket createRestApi() {
         List<Parameter> parameters = new ArrayList<>();
-//        parameters.add(new ParameterBuilder().name(BaseHeader.Token).modelRef(new ModelRef("string")).description("token").parameterType("header").required(false).build());
-//        parameters.add(new ParameterBuilder().name(BaseHeader.SOURCE).modelRef(new ModelRef("string")).description("来源").parameterType("header").required(false).build());
-//        parameters.add(new ParameterBuilder().name(BaseHeader.REQUEST_ID).modelRef(new ModelRef("string")).description("请求id").parameterType("header").required(false).build());
-//        parameters.add(new ParameterBuilder().name(BaseHeader.SIGN).modelRef(new ModelRef("string")).description("sign").parameterType("header").required(false).build());
-//        parameters.add(new ParameterBuilder().name(BaseHeader.TIMESTAMP).modelRef(new ModelRef("string")).description("timestamp").parameterType("header").required(false).build());
 
 
         return new Docket(DocumentationType.SWAGGER_2)
@@ -46,7 +36,7 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("点方圆 - 服务端")
+                .title("服务端")
                 .termsOfServiceUrl("Api调用文档")
                 .version("1.0.09032")
                 .build();

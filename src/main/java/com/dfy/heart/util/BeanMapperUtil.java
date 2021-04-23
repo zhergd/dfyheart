@@ -16,11 +16,7 @@ import java.lang.reflect.Method;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * @author zhangzuhao
- * @Description: 对象之间的转换，只转换属性名称和类型匹配的field，并且要求有setter getter
- * @date 2020/9/25 9:41
- */
+
 public class BeanMapperUtil {
 
 

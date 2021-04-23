@@ -1,10 +1,5 @@
 package com.dfy.heart.constants;
 
-/**
- * @author zhangzuhao
- * @description:
- * @date: 2020/9/21 17:34
- */
 public enum ResponseCode {
     /**
      * 成功

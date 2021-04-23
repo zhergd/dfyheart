@@ -53,8 +53,7 @@ class HeartLine extends JFrame {
 //        double x0 = 2 * r * (Math.sin(k * 2 * PI / n) - 0.5 * Math.sin(k * 4 * PI / n)) + 220;
 //        double y0 = -2 * r * (Math.cos(k * 2 * PI / n) - 0.5 * Math.cos(k * 4 * PI / n)) + 220;
         double x0 = 2 * r * (Math.sin(k * 2 * PI / n) - 0.5 * Math.sin(k * 4 * PI / n)) + 220;
-        double y0 = -1 * r * (Math.cos(k * 2 * PI / n) - 0.5 * Math.cos(k * 4 * PI / n)) + 220;
-        System.out.println("x:" + x0 + " ," + "y:" + y0);
+        double y0 = -2 * r * (Math.cos(k * 2 * PI / n) - 0.5 * Math.cos(k * 4 * PI / n)) + 220;
         drawOval(x0, y0, 1, 1);
 
     }

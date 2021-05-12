@@ -13,10 +13,10 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 
 /**
- * @author zhangzuhao
  * @description:
  * @date: 2021/4/14 17:22
  */
+@Api(description = "心形controller")
 @RestController
 @RequestMapping("/dfy")
 public class ImgController {
@@ -24,15 +24,13 @@ public class ImgController {
     @Resource
     IImgService imgService;
 
-
-    @ApiOperation("获取心形匹配度")
+    @ApiOperation("1")
     @PostMapping("/getImgBmp")
     public Response<BmpLoaderResponse> bmpLoader(@RequestParam("file") MultipartFile file
             , @RequestParam("sign") String sign, @RequestParam("time") Long time) {
         return imgService.bmpLoader(file, sign, time);
     }
-
-    @ApiOperation("获取两张图片匹配度")
+    @ApiOperation("2")
     @PostMapping("/bmpLoader")
     public Response<BmpLoaderResponse> bmpLoader(@RequestParam("file") MultipartFile file
             , @RequestParam("file2") MultipartFile file2

@@ -6,7 +6,6 @@ import com.dfy.heart.constants.ResponseCode;
 import java.io.Serializable;
 
 /**
- * @author zhangzuhao
  * @Description: 响应
  * @date 2020/9/17 14:10
  */

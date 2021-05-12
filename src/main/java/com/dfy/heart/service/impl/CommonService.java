@@ -1,5 +1,9 @@
 package com.dfy.heart.service.impl;
 
+import cn.hutool.core.util.RandomUtil;
+import cn.hutool.crypto.digest.DigestUtil;
+import cn.hutool.http.HttpUtil;
+import com.alibaba.fastjson.JSONObject;
 import com.dfy.heart.constants.ResponseCode;
 import com.dfy.heart.dao.HeartAccessMapper;
 import com.dfy.heart.dao.HeartMottoMapper;
@@ -8,6 +12,8 @@ import com.dfy.heart.domain.common.Response;
 import com.dfy.heart.domain.entity.*;
 import com.dfy.heart.domain.request.AddAccessRequest;
 import com.dfy.heart.domain.request.GetMottoRequest;
+import com.dfy.heart.domain.request.GetWxConfigRequest;
+import com.dfy.heart.domain.response.GetWxConfigResponse;
 import com.dfy.heart.service.ICommonService;
 import com.dfy.heart.util.AuthUtil;
 import com.dfy.heart.util.BeanMapperUtil;
@@ -18,11 +24,12 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 /**
- * @author zhangzuhao
  * @description:
  * @date: 2021/4/17 15:04
  */
@@ -108,5 +115,53 @@ public class CommonService implements ICommonService {
             HeartMotto heartMotto = heartMottos.get(n);
             return responseUtil.buildSuccessResponse(heartMotto.getMottoText());
         }
+    }
+
+    @Override
+    public Response<GetWxConfigResponse> getWxConfig(GetWxConfigRequest getWxConfigRequest) {
+        if (StringUtils.isEmpty(getWxConfigRequest.getSign()) || ObjectUtils.isEmpty(getWxConfigRequest.getTime())) {
+            return responseUtil.buildErrorResponse(ResponseCode.PARAMETER_ERROR);
+        }
+        if (!AuthUtil.authAccess(getWxConfigRequest.getSign(), getWxConfigRequest.getTime())) {
+            return responseUtil.buildErrorResponse(ResponseCode.CHECK_SIGN_FAIL);
+        }
+
+        GetWxConfigResponse getWxConfigResponse = new GetWxConfigResponse();
+        Map<String, Object> paramsMap = new HashMap<>();
+        paramsMap.put("grant_type", "client_credential");
+        paramsMap.put("appid", "wx2621fe1afe11a1d3");
+        paramsMap.put("secret", "38e75fd7da225431f9c8b34b547e0647");
+        String s = HttpUtil.get("https://api.weixin.qq.com/cgi-bin/token", paramsMap);
+        JSONObject jsonObject = JSONObject.parseObject(s);
+        String accessToken = jsonObject.getString("access_token");
+        if (StringUtils.isEmpty(accessToken)) {
+            return responseUtil.buildErrorResponse(ResponseCode.FAILURE);
+        }
+        Map<String, Object> paramsMap2 = new HashMap<>();
+        paramsMap.put("access_token", accessToken);
+        paramsMap.put("type", "jsapi");
+        String s2 = HttpUtil.get("https://api.weixin.qq.com/cgi-bin/ticket/getticket", paramsMap);
+        JSONObject jsonObject2 = JSONObject.parseObject(s2);
+        String ticket = jsonObject2.getString("ticket");
+        String noncestr = RandomUtil.randomString(16);
+
+        getWxConfigResponse.setAppId("wx2621fe1afe11a1d3");
+        getWxConfigResponse.setNonceStr(noncestr);
+        long nowTime = System.currentTimeMillis() / 1000;
+        getWxConfigResponse.setTimestamp(String.valueOf(nowTime));
+
+
+        String timestamp = String.valueOf(System.currentTimeMillis() / 1000);//随机生成的时间戳
+        String signature = getSignature(getWxConfigRequest.getUrl(), timestamp, noncestr, ticket);//开始进行sha1签名
+        getWxConfigResponse.setSignature(signature);
+
+        return responseUtil.buildSuccessResponse(getWxConfigResponse);
+    }
+
+    public static String getSignature(String url, String timeStamp, String nonceStr, String ticket) {
+        //所有待签名参数按照字段名的ASCII 码从小到大排序（字典序）后，使用URL键值对的格式（即key1=value1&key2=value2…）拼接成字符串string1：
+        String signValue = "jsapi_ticket=" + ticket + "&noncestr=" + nonceStr + "×tamp=" + timeStamp + "&url=" + url;
+        String signature = DigestUtil.sha1Hex(signValue);
+        return signature;
     }
 }

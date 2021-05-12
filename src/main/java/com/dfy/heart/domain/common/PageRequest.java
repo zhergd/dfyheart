@@ -3,8 +3,6 @@ package com.dfy.heart.domain.common;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * 分页请求参数
- * @author zhangzuhao
  * @date 2020/9/28 17:17
  */
 public class PageRequest {

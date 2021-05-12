@@ -9,7 +9,6 @@ import java.util.List;
 
 /**
  * 分页响应
- * @author zhangzuhao
  * @date 2020/9/21 11:53
  */
 public class PageResponse<T> implements Serializable {

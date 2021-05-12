@@ -1,26 +1,21 @@
 package com.dfy.heart.domain.request;
 
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 
-/**
- * @description:
- * @date: 2021/4/17 15:08
- */
-public class AddAccessRequest implements Serializable {
+public class GetWxConfigRequest implements Serializable {
 
+    public static final long serialVersionUID = 1L;
 
-    private Integer accessType;
+    @ApiModelProperty("url")
+    private String url;
 
     @ApiModelProperty("sign")
     private String sign;
 
     @ApiModelProperty("time")
     private Long time;
-
-    private static final long serialVersionUID = 1L;
 
     public String getSign() {
         return sign;
@@ -38,11 +33,11 @@ public class AddAccessRequest implements Serializable {
         this.time = time;
     }
 
-    public Integer getAccessType() {
-        return accessType;
+    public String getUrl() {
+        return url;
     }
 
-    public void setAccessType(Integer accessType) {
-        this.accessType = accessType;
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

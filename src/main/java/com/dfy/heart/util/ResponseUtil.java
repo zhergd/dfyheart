@@ -11,7 +11,6 @@ import java.util.List;
 
 
 /**
- * @author zhangzuhao
  * @Description: 响应封装
  * @date 2020/9/21 11:53
  */

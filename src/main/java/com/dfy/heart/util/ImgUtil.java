@@ -5,7 +5,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 
 /**
- * @author zhangzuhao
  * @description:
  * @date: 2021/4/16 11:17
  */
